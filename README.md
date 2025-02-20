@@ -1,61 +1,55 @@
-# 🚀 Getting started with Strapi
+# strapi-demo
 
-Strapi comes with a full featured [Command Line Interface](https://docs.strapi.io/dev-docs/cli) (CLI) which lets you scaffold and manage your project in seconds.
+Test for running Strapi CMS locally in a Docker container. This is a development container for prototyping locally and will be used to build the initial development CI/CD pipeline. The pipeline will be built using AWS CoPilot which is an opinionated Infrastructure as Code (IaC) tool designed for containerized applications. The CI/CD development pipeline will consist of
 
-### `develop`
+- Github Repo
+- Webhook for `git push` to trigger the AWS Pipeline build and deploy stages
+- AWS ECR (container registry) to house the images
+- AWS Apprunner or Fargate to deploy the containers
+- Domain name: ("shift-stream.click"?)
+- CDN: AWS Cloudfront or Cloudflare?
+- WAF: AWS WAF or Cloudflare?
 
-Start your Strapi application with autoReload enabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-develop)
+Note: Cloudflare is supposed to be better, cheaper, easier. AWS is proven, integrates better with our underlying infrastructure already build in AWS, and easier to deploy as a single Infrastructure as Code solution via AWS Copilot, AWS CDK, and AWS Cloudformation.
 
-```
-npm run develop
-# or
-yarn develop
-```
+DATABASE: This version of Stapi uses the SQLite database, so that it can be deployed as a single container. Next steps will include:
 
-### `start`
+- to use `docker compose` and the `compose.yaml` file to add a Postgres database container
+- create an AWS Copilot _add-on_ to create and AWS RDS serverless Postgres database
+- TBD: process from migrating and testing from development database to production database
+- TBD: process for managing environmental variables to support the lifecycle of these various databases as the backend moves from development, to testing, to production environments.
 
-Start your Strapi application with autoReload disabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-start)
+STRAPI ADMIN PANEL: The Strapi Admin Panel is a separate react app that is created with the `strapi build` or `npm run build` command. To increase performance it can be hosted separately as a static app on AWS S3.
 
-```
-npm run start
-# or
-yarn start
-```
+## TODO
 
-### `build`
-
-Build your admin panel. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-build)
-
-```
-npm run build
-# or
-yarn build
-```
-
-## ⚙️ Deployment
-
-Strapi gives you many possible deployment options for your project including [Strapi Cloud](https://cloud.strapi.io). Browse the [deployment section of the documentation](https://docs.strapi.io/dev-docs/deployment) to find the best solution for your use case.
-
-```
-yarn strapi deploy
-```
-
-## 📚 Learn more
-
-- [Resource center](https://strapi.io/resource-center) - Strapi resource center.
-- [Strapi documentation](https://docs.strapi.io) - Official Strapi documentation.
-- [Strapi tutorials](https://strapi.io/tutorials) - List of tutorials made by the core team and the community.
-- [Strapi blog](https://strapi.io/blog) - Official Strapi blog containing articles made by the Strapi team and the community.
-- [Changelog](https://strapi.io/changelog) - Find out about the Strapi product updates, new features and general improvements.
-
-Feel free to check out the [Strapi GitHub repository](https://github.com/strapi/strapi). Your feedback and contributions are welcome!
-
-## ✨ Community
-
-- [Discord](https://discord.strapi.io) - Come chat with the Strapi community including the core team.
-- [Forum](https://forum.strapi.io/) - Place to discuss, ask questions and find answers, show your Strapi project and get feedback or just talk with other Community members.
-- [Awesome Strapi](https://github.com/strapi/awesome-strapi) - A curated list of awesome things related to Strapi.
-
----
-
-<sub>🤫 Psst! [Strapi is hiring](https://strapi.io/careers).</sub>
+- [x] add Todo List for project to README.md file
+- [ ] initial commit
+- [ ] set up VS Code as git commit editor
+- [ ] create a basic template for git commit messages
+- [ ] Run `docker init` to create Dockerfile, compose.yaml, .dockerignore, etc.
+- [ ] comment out `.env` files from `.dockerignore`
+- [ ] Use Strapi docker docs to configure Dockerfile for Strapi
+- [ ] Use Bret Fisher tutorials to optimize Dockerfile for running Node apps
+- [ ] Build Docker image for Strapi based on Dockerfile
+- [ ] Run container based on new image
+- [ ] Test connectivity to localhost:1337 via browser
+- [ ] Build CI/CD pipeline using AWS CoPilot
+- [ ] associate custom domain (shift-stream.click) to container
+- [ ] add restart policies to container
+- [ ] create suitable health checks in container
+- [ ] set up AWS telemetry tools to monitor application: AWS Cloudwatch, AWS Xray.
+- [ ] set up alerts to Slack via AWS SNS (simple notification service)
+- [ ] Run `docker init` to create Dockerfile, compose.yaml, .dockerignore, etc.
+- [ ] comment out `.env` files from `.dockerignore`
+- [ ] Use Strapi docker docs to create Dockerfile for Strapi
+- [ ] Use Bret Fisher tutorials to optimize Dockerfile for Node
+- [ ] Build Docker image for Strapi
+- [ ] Run container based on new image
+- [ ] Test connectivity to localhost:1337 via browser
+- [ ] Build CI/CD pipeline using AWS CoPilot
+- [ ] associate custom domain to container
+- [ ] add restart policies to container
+- [ ] create suitable health checks in container
+- [ ] set up AWS telemetry tools to monitor application: AWS Cloudwatch, AWS Xray.
+- [ ] set up alerts to Slack via AWS SNS (simple notification service)
