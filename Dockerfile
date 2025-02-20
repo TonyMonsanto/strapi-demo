@@ -48,7 +48,8 @@ ARG NODE_VERSION=22.13.1
 
 ################################################################################
 # Installing libvips-dev for sharp Compatibility
-RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev nasm bash vips-dev git
+RUN apt update && apt install build-essential gcc autoconf automake zlib1g-dev libpng-dev nasm bash  libvips-dev git -y
+
 ARG NODE_ENV=development
 ENV NODE_ENV=${NODE_ENV}
 
