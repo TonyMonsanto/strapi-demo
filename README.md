@@ -27,11 +27,11 @@ STRAPI ADMIN PANEL: The Strapi Admin Panel is a separate react app that is creat
 - [x] initial commit
 - [x] Run `docker init` to create Dockerfile, compose.yaml, .dockerignore, etc.
 - [x] comment out `.env` files from `.dockerignore`
-- [ ] Use Strapi docker docs to configure Dockerfile for Strapi
-- [ ] Use Bret Fisher tutorials to optimize Dockerfile for running Node apps
-- [ ] Build Docker image for Strapi based on Dockerfile
-- [ ] Run container based on new image
-- [ ] Test connectivity to localhost:1337 via browser
+- [x] Use Strapi docker docs to configure Dockerfile for Strapi
+- [x] Use Bret Fisher tutorials to optimize Dockerfile for running Node apps
+- [x] Build Docker image for Strapi based on Dockerfile
+- [x] Run container based on new image
+- [x] Test connectivity to localhost:1337 via browser
 - [ ] set up VS Code as git commit editor
 - [ ] create a basic template for git commit messages
 - [ ] Build CI/CD pipeline using AWS CoPilot

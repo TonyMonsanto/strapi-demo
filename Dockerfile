@@ -77,7 +77,6 @@ WORKDIR /opt/
 COPY package.json package-lock.json ./
 RUN npm install -g node-gyp
 RUN npm config set fetch-retry-maxtimeout 600000 -g && npm install
-# RUN npm config set fetch-retry-maxtimeout 600000 -g && npm ci --omit=dev
 ENV PATH=/opt/node_modules/.bin:$PATH
 
 # create node user and group.  This user is part of the official node package, but because we are side-loading Node we have to create it.
