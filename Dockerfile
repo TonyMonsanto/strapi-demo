@@ -59,6 +59,10 @@ RUN npm install -g node-gyp
 RUN npm config set fetch-retry-maxtimeout 600000 -g && npm install
 ENV PATH=/opt/node_modules/.bin:$PATH
 
+# create node user and group.  This user is part of the official node package, but because we are side-loading Node we have to create it.
+RUN groupadd --gid 1001 node \
+    && useradd --uid 1001 --gid node --shell /bin/bash --create-home node
+
 WORKDIR /opt/app
 COPY . .
 RUN chown -R node:node /opt/app
