@@ -26,7 +26,7 @@ STRAPI ADMIN PANEL: The Strapi Admin Panel is a separate react app that is creat
 - [x] add Todo List for project to README.md file
 - [x] initial commit
 - [x] Run `docker init` to create Dockerfile, compose.yaml, .dockerignore, etc.
-- [ ] comment out `.env` files from `.dockerignore`
+- [x] comment out `.env` files from `.dockerignore`
 - [ ] Use Strapi docker docs to configure Dockerfile for Strapi
 - [ ] Use Bret Fisher tutorials to optimize Dockerfile for running Node apps
 - [ ] Build Docker image for Strapi based on Dockerfile
@@ -36,19 +36,6 @@ STRAPI ADMIN PANEL: The Strapi Admin Panel is a separate react app that is creat
 - [ ] create a basic template for git commit messages
 - [ ] Build CI/CD pipeline using AWS CoPilot
 - [ ] associate custom domain (shift-stream.click) to container
-- [ ] add restart policies to container
-- [ ] create suitable health checks in container
-- [ ] set up AWS telemetry tools to monitor application: AWS Cloudwatch, AWS Xray.
-- [ ] set up alerts to Slack via AWS SNS (simple notification service)
-- [ ] Run `docker init` to create Dockerfile, compose.yaml, .dockerignore, etc.
-- [ ] comment out `.env` files from `.dockerignore`
-- [ ] Use Strapi docker docs to create Dockerfile for Strapi
-- [ ] Use Bret Fisher tutorials to optimize Dockerfile for Node
-- [ ] Build Docker image for Strapi
-- [ ] Run container based on new image
-- [ ] Test connectivity to localhost:1337 via browser
-- [ ] Build CI/CD pipeline using AWS CoPilot
-- [ ] associate custom domain to container
 - [ ] add restart policies to container
 - [ ] create suitable health checks in container
 - [ ] set up AWS telemetry tools to monitor application: AWS Cloudwatch, AWS Xray.
