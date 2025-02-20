@@ -31,25 +31,25 @@ FROM ${NODE} AS node
 FROM ${BASE}
 
 
-# ************** BASE IMAGE (Follows BF Best Practices) ****************
+# ************** ENTRY POINT: TINI ****************
 
-# From BF: set entrypoint so that you always run commands with tini
-# This replaces npm in CMD with tini for better kernel signal handling
-# Instead of waiting 10 secs to kill process, shutdown is instantaneous
-# You may also need development tools to build native npm addons:
-# apt-get install gcc g++ make
-# From BF: replace NPM in CMD with tini v0.19.0 for better kernel signal handling
+# Node is not good at kernel signal handling within Docker. Node does not stop running when you stop the container.  You have to wait 10 seconds for Docker to kill the process and stop the container. 
+# BF recommends that we use tini (https://github.com/krallin/tini) as the ENTRYPOINT for node apps in Docker.  
+# Strapi recommends PM2 (https://www.npmjs.com/package/pm2) as a process manager for Strapi "to keep your Strapi application running and to reload it without downtime" (https://docs-v4.strapi.io/dev-docs/deployment/process-manager).
 
-#  * * * NOTE: ARG TINI_VERSION not working for some reason, so version is hardcoded here.
-# https://github.com/krallin/tini
-# AMD/64 version: https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini-${TINI_ARCH}
-# will need to use AMD/64 version on AWS
+# NOTE: TINI_VERSION and TINI_ARCH not working for some reason, so version for now we are hardcoding these values
+# https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini-${TINI_ARCH}
+
+# We use the ARM/64 version for Macs with Apple chip, but we will need to use AMD/64 version on AWS.
 
 ARG TINI_VERSION=v0.19.0
 ARG TINI_ARCH=arm64
 
 ADD --chmod=755 https://github.com/krallin/tini/releases/download/v0.19.0/tini-arm64 /tini
 ENTRYPOINT ["/tini", "--"]
+
+
+# ************** SIDE LOAD OFFICIAL NODE BINARIES ****************
 
 #Copy Node binaries from official Node image
 COPY --from=node /usr/local/include/ /usr/local/include/
@@ -59,8 +59,10 @@ COPY --from=node /usr/local/bin/ /usr/local/bin/
 #fix simlinks for npx, yarn, and pnpm
 RUN corepack disable && corepack enable
 
-# ************** Build Strapi (Follows SD and BF Best Practices) ****************
 
+# ************** BUILD STRAPI (Follows SD Best Practices) ****************
+
+# The version of node supported by Strapi v5.10.3
 ARG NODE_VERSION=22.13.1
 
 # Installing libvips-dev for sharp Compatibility
@@ -86,6 +88,8 @@ WORKDIR /opt/app
 COPY . .
 RUN chown -R node:node /opt/app
 USER node
+#build the Admin panel
 RUN ["npm", "run", "build"]
 EXPOSE 1337
+#launch the Strapi server in development mode
 CMD ["npm", "run", "develop"]
