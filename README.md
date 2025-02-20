@@ -40,3 +40,4 @@ STRAPI ADMIN PANEL: The Strapi Admin Panel is a separate react app that is creat
 - [ ] create suitable health checks in container
 - [ ] set up AWS telemetry tools to monitor application: AWS Cloudwatch, AWS Xray.
 - [ ] set up alerts to Slack via AWS SNS (simple notification service)
+- [ ] add devcontainer to repo
