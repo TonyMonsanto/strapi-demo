@@ -8,7 +8,9 @@
 
 # Official Node image based on Debian which has several CVEs
 # Node 20 highest version of Node supported by Strapi 5.9
-ARG NODE=node:20.18.2-bookworm-slim@sha256:83fdfa2a4de32d7f8d79829ea259bd6a4821f8b2d123204ac467fbe3966450fc
+# ARG NODE=node:20.18.2-bookworm-slim@sha256:83fdfa2a4de32d7f8d79829ea259bd6a4821f8b2d123204ac467fbe3966450fc
+
+ARG NODE=node:22.14-bullseye-slim@sha256:7ed5bbd6c552d2a8f83c24620c68e88f4299980214d89bc1f39c46bfa80b1ec7
 
 # Use Ubuntu for OS base; better supported and no CVEs as compared to Debian
 ARG BASE=ubuntu:oracular-20241120@sha256:102bc1874fdb136fc2d218473f03cf84135cb7496fefdb9c026c0f553cfe1b6d
@@ -34,6 +36,7 @@ ENTRYPOINT ["/tini", "--"]
 
 #"Side load" Node binaries from official NODE image
 # Strategy from https://github.com/BretFisher/nodejs-rocks-in-docker/blob/main/dockerfiles/ubuntu-copy.Dockerfile
+
 COPY --from=node /usr/local/include/ /usr/local/include/
 COPY --from=node /usr/local/lib/ /usr/local/lib/
 COPY --from=node /usr/local/bin/ /usr/local/bin/
@@ -41,13 +44,9 @@ COPY --from=node /usr/local/bin/ /usr/local/bin/
 #fix simlinks for npx, yarn, and pnpm
 RUN corepack disable && corepack enable
 
-
 ARG NODE_VERSION=22.13.1
 
 ################################################################################
-# Use node image for base image for all stages.
-FROM node:${NODE_VERSION}-alpine as base
-
 # Installing libvips-dev for sharp Compatibility
 RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev nasm bash vips-dev git
 ARG NODE_ENV=development
