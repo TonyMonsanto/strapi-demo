@@ -33,6 +33,7 @@ STRAPI ADMIN PANEL: The Strapi Admin Panel is a separate react app that is creat
 - [x] Run container based on new image
 - [x] Test connectivity to localhost:1337 via browser
 - [x] comment out `.env` files from `.gitignore` **just for local dev from git repo**
+- [ ] **add volume to Docker file for persistent data storage**
 - [ ] set up VS Code as git commit editor
 - [ ] create a basic template for git commit messages
 - [ ] Build CI/CD pipeline using AWS CoPilot
